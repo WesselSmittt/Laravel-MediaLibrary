@@ -1,11 +1,11 @@
 <?php
 
 namespace App\Http\Controllers;
-use App\Models\Image;
+use App\Models\Photo;
 
 use Illuminate\Http\Request;
 
-class ImageController extends Controller
+class PhotoController extends Controller
 {
 
     public function index()
@@ -22,11 +22,17 @@ class ImageController extends Controller
         ]);
         $imageName = time().'.'.$request->image->extension();
         $request->image->move(public_path('images'), $imageName);
-        $image = new image();
-        $image->name = $request->name;
-        $image->description = $request->description;
-        $image->image = 'images/'.$imageName;
-        $image->save();
-        return redirect()->route('upload.index')->with('success', 'image created successfully.');
+        $photo = new Photo();
+        $photo->name = $request->name;
+        $photo->description = $request->description;
+        $photo->image = 'images/'.$imageName;
+        $photo->save();
+        return redirect()->route('upload.index')->with('success', 'Product created successfully.');
+    }
+
+    public function mediaIndex()
+    {
+        $photos = Photo::all();
+        return view('media.index', ['photos' => $photos]);
     }
 }

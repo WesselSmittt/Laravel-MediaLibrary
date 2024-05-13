@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\ProfileController;
-use App\Http\Controllers\ImageController;
+use App\Http\Controllers\PhotoController;
 use Illuminate\Support\Facades\Route;
 
 Route::get('/', function () {
@@ -19,8 +19,12 @@ Route::middleware('auth')->group(function () {
 });
 
 Route::middleware('auth')->group(function () {
-    Route::get('/upload-image', [ImageController::class, 'index'])->name('upload.index');
-    Route::post('/upload-image', [ImageController::class, 'store'])->name('upload.store');
+    Route::get('/upload-image', [PhotoController::class, 'index'])->name('upload.index');
+    Route::post('/upload-image', [PhotoController::class, 'store'])->name('upload.store');
+});
+
+Route::middleware('auth')->group(function () {
+    Route::get('/media', [PhotoController::class, 'mediaIndex'])->name('media.index');
 });
 
 require __DIR__.'/auth.php';
