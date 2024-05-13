@@ -1,9 +1,14 @@
 <x-app-layout>
     <x-slot name="header">
-        <h2 class="font-semibold text-xl text-gray-800 leading-tight">
+        <h2 class="font-semibold text-xl text-gray-200 leading-tight mb-4">
             {{ __('Media Library') }}
         </h2>
+    <form action="{{ route('media.index') }}" method="GET">
+    <input type="text" name="search" placeholder="Zoeken..." value="{{ request()->query('search') }}">
+    <button type="submit">Zoeken</button>
+    </form>
     </x-slot>
+
 
     <section class="flex flex-wrap justify-around">
     @foreach ($photos as $photo)
@@ -14,6 +19,13 @@
                 <p class="text-white text-base">
                     {{ $photo->description }}
                 </p>
+                <form action="{{ route('photo.destroy', $photo) }}" method="POST" onsubmit="return confirm('Weet je zeker dat je deze foto wilt verwijderen?');">
+                    @csrf
+                    @method('DELETE')
+                    <button type="submit" class="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded">
+                        Verwijder
+                    </button>
+                </form>
             </div>
         </div>
     @endforeach

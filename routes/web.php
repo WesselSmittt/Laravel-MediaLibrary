@@ -21,6 +21,7 @@ Route::middleware('auth')->group(function () {
 Route::middleware('auth')->group(function () {
     Route::get('/upload-image', [PhotoController::class, 'index'])->name('upload.index');
     Route::post('/upload-image', [PhotoController::class, 'store'])->name('upload.store');
+    Route::delete('/photo/{photo}', [PhotoController::class, 'destroy'])->name('photo.destroy');
 });
 
 Route::middleware('auth')->group(function () {
