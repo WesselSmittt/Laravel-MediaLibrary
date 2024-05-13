@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use App\Models\Photo;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class PhotoController extends Controller
 {
@@ -22,10 +23,12 @@ class PhotoController extends Controller
         ]);
         $imageName = time().'.'.$request->image->extension();
         $request->image->move(public_path('images'), $imageName);
+
         $photo = new Photo();
         $photo->name = $request->name;
         $photo->description = $request->description;
         $photo->image = 'images/'.$imageName;
+        $photo->user_id = Auth::id(); 
         $photo->save();
         return redirect()->route('upload.index')->with('success', 'Product created successfully.');
     }
