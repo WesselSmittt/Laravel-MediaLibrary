@@ -52,6 +52,8 @@ public function mediaIndex(Request $request)
                ->orWhere('description', 'LIKE', "%{$search}%");
     }
 
+    $photos->orderBy('created_at', 'desc');
+
     return view('media.index', ['photos' => $photos->get()]);
 }
 

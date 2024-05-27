@@ -3,12 +3,12 @@
         <h2 class="font-semibold text-xl text-gray-200 leading-tight mb-4">
             {{ __('Media Library') }}
         </h2>
-    <form action="{{ route('media.index') }}" method="GET">
-    <input type="text" name="search" placeholder="Zoeken..." value="{{ request()->query('search') }}">
-    <button type="submit">Zoeken</button>
+    <form action="{{ route('media.index') }}" method="GET" class="flex">
+        <input type="text" name="search" placeholder="Zoeken..." value="{{ request()->query('search') }}" class="px-3 py-2 border rounded">
+        <button type="submit" class="px-3 py-2 bg-blue-500 text-white rounded">Zoeken</button>
+        <a href="{{ route('media.index') }}" class="px-3 py-2 bg-red-500 text-white rounded ml-2">Clear</a>
     </form>
     </x-slot>
-
 
     <section class="flex flex-wrap justify-around">
     @foreach ($photos as $photo)
